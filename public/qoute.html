@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+        nav {
+            background-color: white;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%; /* Make the navigation bar full width */
+            position: fixed; /* Fix it to the top */
+            top: 0; /* Place it at the top */
+            left: 0; /* Align it to the left */
+            z-index: 1000; /* Ensure it's above other content */
+        }
+
+        nav img {
+            height: 50px;
+            width: auto;
+            margin-right: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            text-align: center;
+        }
+
+        nav li {
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        } 
+        h1 {
+            color: #333;
+        }
+    
+        #quote {
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+    
+        #author {
+            margin-top: 10px;
+            font-style: italic;
+        }
+    
+        #loading {
+            display: none;
+            font-style: italic;
+            color: #888;
+        }
+    
+        #getQuote {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    
+        #getQuote:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    </head>
+    <body>
+        <nav>
+            <a href="index.html"> 
+                <img src="favicon/note 350 x 75.png" alt="Logo">
+            </a>
+            <ul>
+                <li class="dropdown">
+                    <a href="javascript:void(0)">Services</a>
+                    <div class="dropdown-content">
+                        <a href="calculat.html">Calculator</a>
+                        <a href="Length.html">Length Converter</a>
+                        <a href="Math quizzes Easy.html">Math quiz Easy</a>
+                        <a href="Math quizzes medium.html">Math quiz Medium</a>
+                        <a href="Math quizzes Hard.html">Math quiz Hard</a>
+                    </div>
+                </div>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)">random</a>
+                    <div class="dropdown-content">
+                        <a href="website.html">web site </a>
+                        <a href="picture.html">pictures  </a>
+                        <a href="name.html">name  </a>
+                        <a href="nambers.html">numbers </a>
+                        <a href="qoute.html">Quote </a>
+                    </div>
+                </div>
+                </li>
+             
+                <li class="dropdown">
+                    <a href="javascript:void(0)">Art</a>
+                    <div class="dropdown-content">
+                        <a href="draw.html">draw </a>
+                        <a href="draw pexel.html">draw pexel </a>
+                    </div>
+                </div>
+                </li>
+        
+                <li class="dropdown">
+                    <a href="javascript:void(0)">Game</a>
+                    <div class="dropdown-content">
+                        <a href="Hand Clash.html">Hand Clash </a>
+                        <a href="Tabulae Trium.html">Tabulae Trium </a>
+                    </div>
+                </div>
+                </li>
+    
+    
+                <li><a href="index.html">Note</a></li>
+                <li><a href="about.html">About</a></li>
+           
+            </ul>
+        </nav>
+    </body>
+    </head>
+</head>
+<body>
+   <p>                 .       </p>
+   <p>                 .       </p>
+    <h1>Random Quote</h1>
+    <p id="quote"></p>
+    <p id="author"></p>
+    <p id="loading">Loading...</p>
+
+    <!-- Add the Tweet Quote button -->
+    <button id="getQuote">Get Quote</button>
+    <button id="tweetQuote" disabled>Tweet Quote</button>
+
+    <script>
+        const quoteElement = document.getElementById('quote');
+        const authorElement = document.getElementById('author');
+        const loadingElement = document.getElementById('loading');
+        const getQuoteButton = document.getElementById('getQuote');
+        const tweetQuoteButton = document.getElementById('tweetQuote');
+
+        getQuoteButton.addEventListener('click', () => {
+            loadingElement.style.display = 'block'; // Show loading indicator
+            quoteElement.textContent = '';
+            authorElement.textContent = '';
+
+            fetch('https://api.quotable.io/random')
+                .then(response => response.json())
+                .then(data => {
+                    quoteElement.textContent = `"${data.content}"`;
+                    authorElement.textContent = `- ${data.author}`;
+                    tweetQuoteButton.disabled = false; // Enable Tweet Quote button
+                    loadingElement.style.display = 'none'; // Hide loading indicator
+                })
+                .catch(error => {
+                    console.error('Error fetching quote:', error);
+                    quoteElement.textContent = 'An error occurred while fetching the quote.';
+                    authorElement.textContent = '';
+                    tweetQuoteButton.disabled = true; // Disable Tweet Quote button on error
+                    loadingElement.style.display = 'none'; // Hide loading indicator
+                });
+        });
+
+        tweetQuoteButton.addEventListener('click', () => {
+            const quote = quoteElement.textContent;
+            const author = authorElement.textContent;
+
+            const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(quote)} ${encodeURIComponent(author)}`;
+
+            window.open(tweetUrl, '_blank');
+        });
+    </script>
+</body>
+</html>

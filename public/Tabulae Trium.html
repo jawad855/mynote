@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabulae Trium</title>
+    <style>
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 115vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        nav {
+    background-color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Add this to make it full-width */
+    position: fixed; /* Add this to make it stay at the top */
+    top: 0; /* Add this to make it stay at the top */
+    z-index: 2; /* Add this to ensure it's above other content */
+}
+
+        nav img {
+            height: 50px;
+            width: auto;
+            margin-right: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            text-align: center;
+        }
+
+        nav li {
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        h1 {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        /* Game board styles */
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+            margin: 20px auto;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            font-size: 2.5rem;
+            cursor: pointer;
+            background-color: #eee;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .cell:hover {
+            background-color: #ddd;
+        }
+
+        .winner-cell {
+            background-color: #2ecc71 !important;
+            color: #fff;
+        }
+
+        /* Message and Restart Button Styles */
+        #message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.8rem;
+            color: #333;
+        }
+
+        #player-turn {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 1.4rem;
+            color: #555;
+        }
+
+        #restart-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.4rem;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #restart-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+<body>
+    <nav>
+        <a href="index.html"> 
+            <img src="favicon/note 350 x 75.png" alt="Logo">
+        </a>
+        <ul>
+            <li class="dropdown">
+                <a href="javascript:void(0)">Services</a>
+                <div class="dropdown-content">
+                    <a href="calculat.html">Calculator</a>
+                    <a href="Length.html">Length Converter</a>
+                    <a href="Math quizzes Easy.html">Math quiz Easy</a>
+                    <a href="Math quizzes medium.html">Math quiz Medium</a>
+                    <a href="Math quizzes Hard.html">Math quiz Hard</a>
+                </div>
+            </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">random</a>
+                <div class="dropdown-content">
+                    <a href="website.html">web site </a>
+                    <a href="picture.html">pictures  </a>
+                    <a href="name.html">name  </a>
+                    <a href="nambers.html">numbers </a>
+                    <a href="qoute.html">Quote </a>
+                </div>
+            </div>
+            </li>
+         
+            <li class="dropdown">
+                <a href="javascript:void(0)">Art</a>
+                <div class="dropdown-content">
+                    <a href="draw.html">draw </a>
+                    <a href="draw pexel.html">draw pexel </a>
+                </div>
+            </div>
+            </li>
+         
+            <li class="dropdown">
+                <a href="javascript:void(0)">Game</a>
+                <div class="dropdown-content">
+                    <a href="Hand Clash.html">Hand Clash </a>
+                    <a href="Tabulae Trium.html">Tabulae Trium </a>
+                </div>
+            </div>
+            </li>
+
+            <li><a href="index.html">Note</a></li>
+            <li><a href="about.html">About</a></li>
+       
+        </ul>
+    </nav>
+</body>
+</head>
+<body>
+
+</head>
+
+<body>
+    <h1>Tabulae Trium</h1>
+    <div class="board" id="board">
+        <!-- The game board will be dynamically created here -->
+    </div>
+    <div id="message"></div>
+    <div id="player-turn"></div>
+    <div id="scores">
+        <div id="player-x-score">Player X: 0</div>
+        <div id="player-o-score">Player O: 0</div>
+    </div>
+    <button id="restart-button" onclick="restartGame()">Restart Game</button>
+    <script>
+        // Your JavaScript code remains unchanged.
+    </script>
+</body>
+
+<script>
+    const board = document.getElementById('board');
+    const message = document.getElementById('message');
+    const playerTurn = document.getElementById('player-turn');
+    const restartButton = document.getElementById('restart-button');
+    const scores = {
+        playerX: 0,
+        playerO: 0
+    };
+    const cells = [];
+
+    let currentPlayer = 'X';
+    let gameOver = false;
+
+    function createBoard() {
+        for (let i = 0; i < 9; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.dataset.index = i;
+            cell.addEventListener('click', () => makeMove(i));
+            board.appendChild(cell);
+            cells.push(cell);
+        }
+    }
+
+    function checkWinner() {
+        const winningCombos = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+
+        for (const combo of winningCombos) {
+            const [a, b, c] = combo;
+            if (cells[a].textContent && cells[a].textContent === cells[b].textContent && cells[b].textContent === cells[c].textContent) {
+                highlightWinnerCells(combo);
+                message.textContent = `${currentPlayer} wins!`;
+                gameOver = true;
+                updateScores(); // Update scores when someone wins
+                break;
+            }
+        }
+
+        if (!gameOver && cells.every(cell => cell.textContent !== '')) {
+            message.textContent = "It's a draw!";
+            gameOver = true;
+        }
+    }
+
+    function highlightWinnerCells(winningCombo) {
+        winningCombo.forEach(index => cells[index].classList.add('winner-cell'));
+    }
+
+    function makeMove(index) {
+        const cell = cells[index];
+        if (!gameOver && cell.textContent === '') {
+            cell.textContent = currentPlayer;
+            checkWinner();
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            playerTurn.textContent = `Player ${currentPlayer}'s turn`;
+
+            if (!gameOver && currentPlayer === 'O') {
+                // Call the computer player's function (Replace with AI logic)
+                setTimeout(computerMove, 500);
+            }
+        }
+    }
+
+    function computerMove() {
+        // Implement your AI logic here (e.g., minimax algorithm)
+        // For simplicity, let's make a random move for now
+        const emptyCells = cells.filter(cell => cell.textContent === '');
+        if (emptyCells.length > 0) {
+            const randomIndex = Math.floor(Math.random() * emptyCells.length);
+            makeMove(parseInt(emptyCells[randomIndex].dataset.index));
+        }
+    }
+
+    function restartGame() {
+        cells.forEach(cell => {
+            cell.textContent = '';
+            cell.classList.remove('winner-cell');
+        });
+        currentPlayer = 'X';
+        gameOver = false;
+        message.textContent = '';
+        playerTurn.textContent = `Player ${currentPlayer}'s turn`;
+    }
+
+    function updateScores() {
+        if (currentPlayer === 'X') {
+            scores.playerX++;
+            document.getElementById('player-x-score').textContent = `Player X: ${scores.playerX}`;
+        } else {
+            scores.playerO++;
+            document.getElementById('player-o-score').textContent = `Player O: ${scores.playerO}`;
+        }
+    }
+
+    createBoard(); // Initialize the game board
+    playerTurn.textContent = `Player ${currentPlayer}'s turn`;
+</script>
+
+</html>

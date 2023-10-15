@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Picture Generator</title>
+    <style>
+        /* Your navigation bar styles */
+        nav {
+            background-color: white;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%; /* Make the navigation bar full width */
+            position: fixed; /* Fix it to the top */
+            top: 0; /* Place it at the top */
+            left: 0; /* Align it to the left */
+            z-index: 1000; /* Ensure it's above other content */
+        }
+
+        nav img {
+            height: 50px;
+            width: auto;
+            margin-right: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            text-align: center;
+        }
+
+        nav li {
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Other styles for your page */
+        body {
+            margin: 0;
+            padding-top: 70px; /* Adjust for the height of the navigation bar */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #randomImage {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Your navigation bar -->
+    <nav>
+        <a href="index.html"> 
+            <img src="favicon/note 350 x 75.png" alt="Logo">
+        </a>
+        <ul>
+            <li class="dropdown">
+                <a href="javascript:void(0)">Services</a>
+                <div class="dropdown-content">
+                    <a href="calculat.html">Calculator</a>
+                    <a href="Length.html">Length Converter</a>
+                    <a href="Math quizzes Easy.html">Math quiz Easy</a>
+                    <a href="Math quizzes medium.html">Math quiz Medium</a>
+                    <a href="Math quizzes Hard.html">Math quiz Hard</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">random</a>
+                <div class="dropdown-content">
+                    <a href="website.html">web site </a>
+                    <a href="picture.html">pictures  </a>
+                    <a href="name.html">name  </a>
+                    <a href="nambers.html">numbers </a>
+                    <a href="qoute.html">Quote </a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">Art</a>
+                <div class="dropdown-content">
+                    <a href="draw.html">draw </a>
+                    <a href="draw pexel.html">draw pexel </a>
+                </div>
+            </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">Game</a>
+                <div class="dropdown-content">
+                    <a href="Hand Clash.html">Hand Clash </a>
+                    <a href="Tabulae Trium.html">Tabulae Trium </a>
+                </div>
+            </div>
+            </li>
+
+          
+            <li><a href="index.html">Note</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+    <h1>Random Picture Generator</h1>
+    <img id="randomImage" src="" alt="Random Image">
+    
+    <script>
+        // Function to generate a random image URL from Picsum.photos
+        function getRandomImageURL() {
+            const width = 400; // Change this to the desired width
+            const height = 400; // Change this to the desired height
+            const randomSeed = Math.floor(Math.random() * 1000000000000000000000000000000000000000000000000000000000);
+            return `https://picsum.photos/${width}/${height}?random=${randomSeed}`;
+        }
+
+        // Set the image source to a random image from Picsum.photos
+        var randomImage = document.getElementById("randomImage");
+        randomImage.src = getRandomImageURL();
+    </script>
+</body>
+</html>

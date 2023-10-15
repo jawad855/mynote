@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock, Paper, Scissors Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        nav {
+    background-color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Add this to make it full-width */
+    position: fixed; /* Add this to make it stay at the top */
+    top: 0; /* Add this to make it stay at the top */
+    z-index: 2; /* Add this to ensure it's above other content */
+}
+
+        nav img {
+            height: 50px;
+            width: auto;
+            margin-right: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            text-align: center;
+        }
+
+        nav li {
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .choices {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .choice {
+            cursor: pointer;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #fff;
+            border: 2px solid #333;
+            border-radius: 5px;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .choice:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 0px 10px 0px #333;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        #score {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #555;
+        }
+        #balance {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #555;
+        }
+        button.reset {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+        button.reset:hover {
+            background-color: #555;
+        }
+        @media screen and (max-width: 768px) {
+            .choices {
+                flex-direction: column;
+                align-items: center;
+            }
+            .choice {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html"> 
+            <img src="favicon/note 350 x 75.png" alt="Logo">
+        </a>
+        <ul>
+            <li class="dropdown">
+                <a href="javascript:void(0)">Services</a>
+                <div class="dropdown-content">
+                    <a href="calculat.html">Calculator</a>
+                    <a href="Length.html">Length Converter</a>
+                    <a href="Math quizzes Easy.html">Math quiz Easy</a>
+                    <a href="Math quizzes medium.html">Math quiz Medium</a>
+                    <a href="Math quizzes Hard.html">Math quiz Hard</a>
+                </div>
+            </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">random</a>
+                <div class="dropdown-content">
+                    <a href="website.html">web site </a>
+                    <a href="picture.html">pictures  </a>
+                    <a href="name.html">name  </a>
+                    <a href="nambers.html">numbers </a>
+                    <a href="qoute.html">Quote </a>
+                </div>
+            </div>
+            </li>
+         
+            <li class="dropdown">
+                <a href="javascript:void(0)">Art</a>
+                <div class="dropdown-content">
+                    <a href="draw.html">draw </a>
+                    <a href="draw pexel.html">draw pexel </a>
+                </div>
+            </div>
+            </li>
+         
+            <li class="dropdown">
+                <a href="javascript:void(0)">Game</a>
+                <div class="dropdown-content">
+                    <a href="Hand Clash.html">Hand Clash </a>
+                    <a href="Tabulae Trium.html">Tabulae Trium </a>
+                </div>
+            </div>
+            </li>
+
+            <li><a href="index.html">Note</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+</body>
+</head>
+<body>
+    <div class="container">
+        <h1>Rock, Paper, Scissors Game</h1>
+        <div class="choices">
+            <div class="choice" data-choice="rock">Rock</div>
+            <div class="choice" data-choice="paper">Paper</div>
+            <div class="choice" data-choice="scissors">Scissors</div>
+        </div>
+        <p id="result"></p>
+        <p id="score">Player: 0 | Computer: 0</p>
+        <p id="balance">Balance Score: 0</p>
+        <button class="reset" id="reset">Reset Game</button>
+    </div>
+
+    <audio id="winSound" src="Hand Clash el/win.wav"></audio>
+    <audio id="loseSound" src="Hand Clash el/loser.wav"></audio>
+    <audio id="tieSound" src="Hand Clash el/tie.wav"></audio>
+
+    <script>
+        let playerScore = 0;
+        let computerScore = 0;
+        let balanceScore = 0;
+        const result = document.getElementById('result');
+        const score = document.getElementById('score');
+        const balance = document.getElementById('balance');
+        const winSound = document.getElementById('winSound');
+        const loseSound = document.getElementById('loseSound');
+        const tieSound = document.getElementById('tieSound');
+        let gameInProgress = false;
+
+        function computerChoice() {
+            const choices = ['rock', 'paper', 'scissors'];
+            return choices[Math.floor(Math.random() * 3)];
+        }
+
+        function playGame(playerChoice) {
+            if (gameInProgress) return;
+            gameInProgress = true;
+
+            const computer = computerChoice();
+
+            const getResultMessage = (winner) => {
+                if (winner === 'player') {
+                    winSound.play();
+                    return `You win! ${playerChoice} beats ${computer}.`;
+                } else if (winner === 'computer') {
+                    loseSound.play();
+                    return `Computer wins! ${computer} beats ${playerChoice}.`;
+                } else {
+                    tieSound.play();
+                    balanceScore++;
+                    return `It's a tie! You both chose ${playerChoice}.`;
+                }
+            };
+
+            setTimeout(() => {
+                if (playerChoice === computer) {
+                    result.textContent = getResultMessage('tie');
+                } else if (
+                    (playerChoice === 'rock' && computer === 'scissors') ||
+                    (playerChoice === 'paper' && computer === 'rock') ||
+                    (playerChoice === 'scissors' && computer === 'paper')
+                ) {
+                    result.textContent = getResultMessage('player');
+                    playerScore++;
+                } else {
+                    result.textContent = getResultMessage('computer');
+                    computerScore++;
+                }
+
+                score.textContent = `Player: ${playerScore} | Computer: ${computerScore}`;
+                balance.textContent = `Balance Score: ${balanceScore}`;
+                gameInProgress = false;
+            }, 200);
+        }
+
+        const choices = document.querySelectorAll('.choice');
+        choices.forEach(choice => {
+            choice.addEventListener('click', function () {
+                const playerChoice = this.getAttribute('data-choice');
+                playGame(playerChoice);
+            });
+        });
+
+        const resetButton = document.getElementById('reset');
+        resetButton.addEventListener('click', function () {
+            playerScore = 0;
+            computerScore = 0;
+            balanceScore = 0;
+            result.textContent = '';
+            score.textContent = 'Player: 0 | Computer: 0';
+            balance.textContent = 'Balance Score: 0';
+        });
+    </script>
+</body>
+</html>

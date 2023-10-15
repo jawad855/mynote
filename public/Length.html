@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        nav {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px; /* Added padding to top and bottom */
+        }
+
+        nav img {
+            height: 50px;
+            width: auto;
+            margin-right: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            text-align: center;
+        }
+
+        nav li {
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        div {
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+        }
+
+        input[type="number"] {
+            width: 100px;
+            padding: 5px;
+        }
+
+        select {
+            padding: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        #output {
+            font-weight: bold;
+            font-size: 20px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html"> 
+            <img src="favicon/note 350 x 75.png" alt="Logo">
+        </a>
+        <ul>
+            <li class="dropdown">
+                <a href="javascript:void(0)">Services</a>
+                <div class="dropdown-content">
+                    <a href="calculat.html">Calculator</a>
+                    <a href="Length.html">Length Converter</a>
+                    <a href="Math quizzes Easy.html">Math quiz Easy</a>
+                    <a href="Math quizzes medium.html">Math quiz Medium</a>
+                    <a href="Math quizzes Hard.html">Math quiz Hard</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">random</a>
+                <div class="dropdown-content">
+                    <a href="website.html">web site </a>
+                    <a href="picture.html">pictures  </a>
+                    <a href="name.html">name  </a>
+                    <a href="nambers.html">numbers </a>
+                    <a href="qoute.html">Quote </a>
+                </div>
+            </li>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)">Art</a>
+            <div class="dropdown-content">
+                <a href="draw.html">draw </a>
+                <a href="draw pexel.html">draw pexel </a>
+            </div>
+        </div>
+        </li>
+       
+        <li class="dropdown">
+            <a href="javascript:void(0)">Game</a>
+            <div class="dropdown-content">
+                <a href="Hand Clash.html">Hand Clash </a>
+                <a href="Tabulae Trium.html">Tabulae Trium </a>
+            </div>
+        </div>
+        </li>
+
+        <li><a href="index.html">Note</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+    
+    <h1>Length Unit Converter</h1>
+    
+    <div>
+      <label for="input">Enter Length:</label>
+      <input type="number" id="input">
+      <select id="fromUnit">
+          <option value="meters">Meters (m)</option>
+          <option value="centimeters">Centimeters (cm)</option>
+          <option value="millimeters">Millimeters (mm)</option>
+          <option value="feet">Feet (ft)</option>
+          <option value="inches">Inches (in)</option>
+          <!-- Additional length units -->
+          <option value="kilometers">Kilometers (km)</option>
+          <option value="yards">Yards (yd)</option>
+          <option value="miles">Miles (mi)</option>
+          <option value="nautical_miles">Nautical Miles (nmi)</option>
+          <option value="chains">Chains (ch)</option>
+      </select>
+  </div>
+  
+  <div>
+      <label for="output">Converted Length:</label>
+      <span id="output"></span>
+      <select id="toUnit">
+          <option value="meters">Meters (m)</option>
+          <option value="centimeters">Centimeters (cm)</option>
+          <option value="millimeters">Millimeters (mm)</option>
+          <option value="feet">Feet (ft)</option>
+          <option value="inches">Inches (in)</option>
+          <!-- Additional length units -->
+          <option value="kilometers">Kilometers (km)</option>
+          <option value="yards">Yards (yd)</option>
+          <option value="miles">Miles (mi)</option>
+          <option value="nautical_miles">Nautical Miles (nmi)</option>
+          <option value="chains">Chains (ch)</option>
+      </select>
+  </div>
+  
+  <button onclick="convertLength()">Convert</button>
+  
+  <script>
+      function convertLength() {
+          const input = parseFloat(document.getElementById("input").value);
+          const fromUnit = document.getElementById("fromUnit").value;
+          const toUnit = document.getElementById("toUnit").value;
+          let result = 0;
+
+          // Conversion logic
+          switch (fromUnit) {
+              case "meters":
+                  result = input;
+                  break;
+              case "centimeters":
+                  result = input / 100;
+                  break;
+              case "millimeters":
+                  result = input / 1000;
+                  break;
+              case "feet":
+                  result = input * 0.3048;
+                  break;
+              case "inches":
+                  result = input * 0.0254;
+                  break;
+              // Additional cases for length units
+              case "kilometers":
+                  result = input * 1000;
+                  break;
+              case "yards":
+                  result = input * 0.9144;
+                  break;
+              case "miles":
+                  result = input * 1609.34;
+                  break;
+              case "nautical_miles":
+                  result = input * 1852;
+                  break;
+              case "chains":
+                  result = input * 20.1168;
+                  break;
+          }
+
+          // Convert to the target unit
+          switch (toUnit) {
+              case "meters":
+                  result = result;
+                  break;
+              case "centimeters":
+                  result = result * 100;
+                  break;
+              case "millimeters":
+                  result = result * 1000;
+                  break;
+              case "feet":
+                  result = result / 0.3048;
+                  break;
+              case "inches":
+                  result = result / 0.0254;
+                  break;
+              // Additional cases for length units
+              case "kilometers":
+                  result = result / 1000;
+                  break;
+              case "yards":
+                  result = result / 0.9144;
+                  break;
+              case "miles":
+                  result = result / 1609.34;
+                  break;
+              case "nautical_miles":
+                  result = result / 1852;
+                  break;
+              case "chains":
+                  result = result / 20.1168;
+                  break;
+          }
+
+          document.getElementById("output").textContent = result.toFixed(2);
+      }
+  </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="favicon/favicon.ico" type="image/x-icon"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared Note</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .note-container {
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            border-radius: 10px;
+        }
+
+        #note-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #note-content {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        img, video {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        a {
+            color: #007bff;
+        }
+
+        #back-button {
+            margin-top: 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 24px;
+            font-size: 18px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        #back-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="note-container">
+        <h1 id="note-title">Shared Note</h1>
+        <div id="note-content"></div>
+        <a href="#" id="back-button">Back to Editor</a>
+    </div>
+
+    <script>
+        const queryParams = new URLSearchParams(window.location.search);
+        const title = decodeURIComponent(queryParams.get("title"));
+        const note = decodeURIComponent(queryParams.get("note"));
+
+        const noteTitle = document.getElementById("note-title");
+        const noteContent = document.getElementById("note-content");
+
+        noteTitle.textContent = title;
+        noteContent.innerHTML = note;
+
+        const backButton = document.getElementById("back-button");
+        backButton.addEventListener("click", () => {
+            window.location.href = "index.html";
+        });
+    </script>
+</body>
+</html>

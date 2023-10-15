@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="favicon/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Text Note </title>
+   <style>
+        /* Reset some default browser styles for consistency */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        nav {
+            background-color:white; /* Set the background color of the navbar */
+            padding: 10px; /* Add some padding to the navbar */
+            display: flex; /* Use flexbox to control alignment */
+            justify-content: space-between; /* Space items evenly */
+            align-items: center; /* Center vertically */
+        }
+
+        nav img {
+            height: 50px; /* Set the height of the logo image */
+            width: auto; /* Allow the width to adjust proportionally */
+            margin-right: 20px; /* Add some spacing to the right of the logo */
+        }
+
+        nav ul {
+            list-style-type: none; /* Remove the default list style for the navigation links */
+            padding: 0; /* Remove padding for the list */
+            display: flex; /* Display the list items horizontally */
+       text-align: center;
+        }
+
+        nav li {
+            margin-right: 20px; /* Add some spacing between the list items */
+        }
+
+        nav a {
+            text-decoration: none; /* Remove underlines from links */
+            color: black; /* Set the text color of the links */
+        }
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+             color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+}
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        /* Styling for the note container */
+        .note-container {
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            border-radius: 10px;
+            margin: 20px auto;
+        }
+
+        /* ... (your existing styles) ... */
+  
+
+
+        /* Styling for the note container */
+        .note-container {
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            border-radius: 10px;
+        }
+
+        /* Styling for the note title input */
+        input#note-title {
+            width:50%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        /* Styling for the note text area */
+        #note-text {
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            resize: inline;
+            font-size: 16px;
+            display: block;
+            box-sizing: border-box;
+        }
+
+        /* Styling for buttons */
+        button {
+            margin-top: 15px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #save-button {
+            background-color: #28a745;
+            color: white;
+        }
+
+        #download-button {
+            background-color: #007bff;
+            color: white;
+        }
+
+        #share-button {
+            background-color: #ff5722;
+            color: white;
+        }
+
+        #change-background-button {
+            background-color: #e91e63;
+            color: white;
+        }
+
+        #change-text-color-button {
+            background-color: #9c27b0;
+            color: white;
+        }
+
+        #add-link-button {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        #upload-button {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        #change-font-button {
+            background-color: #333;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        /* Styling for the color dropdown */
+        #color-dropdown {
+            display: none;
+            margin-top: 10px;
+        }
+
+        /* Styling for the color options */
+        select#color-select {
+            padding: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .color-option {
+            display: flex;
+            align-items: center;
+        }
+
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #000;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        /* Styling for images and videos */
+        img, video {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        /* Styling for the note history */
+        #note-history {
+            margin-top: 20px;
+        }
+
+        #note-history ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #note-history li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f0f0f0;
+        }
+
+        #note-history button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        /* Styling for the share box */
+        #share-box {
+            display: none;
+            margin-top: 20px;
+            padding: 8%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+
+        #share-link-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        #copy-link-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 24px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        #copy-link-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html"> 
+            <img src="favicon/note 350 x 75.png" alt="Logo">
+        </a>
+        <ul>
+            <li class="dropdown">
+                <a href="javascript:void(0)">Services</a>
+                <div class="dropdown-content">
+                    <a href="calculat.html">Calculator</a>
+                    <a href="Length.html">Length Converter</a>
+                    <a href="Math quizzes Easy.html">Math quiz Easy</a>
+                    <a href="Math quizzes medium.html">Math quiz Medium</a>
+                    <a href="Math quizzes Hard.html">Math quiz Hard</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">random</a>
+                <div class="dropdown-content">
+                    <a href="website.html">web site </a>
+                    <a href="picture.html">pictures  </a>
+                    <a href="name.html">name  </a>
+                    <a href="nambers.html">numbers </a>
+                    <a href="qoute.html">Quote </a>
+                </div>
+            </li>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)">Art</a>
+            <div class="dropdown-content">
+                <a href="draw.html">draw </a>
+                <a href="draw pexel.html">draw pexel </a>
+            </div>
+        </div>
+        </li>
+         
+        <li class="dropdown">
+            <a href="javascript:void(0)">Game</a>
+            <div class="dropdown-content">
+                <a href="Hand Clash.html">Hand Clash </a>
+                <a href="Tabulae Trium.html">Tabulae Trium </a>
+            </div>
+        </div>
+        </li>
+
+        <li><a href="index.html">Note</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+</body>
+<body>
+    <div class="note-container">
+        <h1 style="text-align: center;"> Text Note</h1>
+        <input type="text" id="note-title" placeholder="Note Title">
+        <div contenteditable="true" id="note-text" placeholder="Write your note here..."></div>
+        <div>
+            <span id="letter-count">Letters: 0</span>
+            <span id="word-count">Words: 0</span>
+        </div>
+        <div id="color-dropdown">
+            <div class="color-option">
+                <div class="color-box" style="background-color: #E57373;"></div>
+                <select id="color-select">
+                    <option value="#E57373">Red</option>
+                    <option value="#F06292">Pink</option>
+                    <option value="#9575CD">Purple</option>
+                    <option value="#64B5F6">Blue</option>
+                    <option value="#4FC3F7">Light Blue</option>
+                    <option value="#81C784">Green</option>
+                    <option value="#FFD54F">Yellow</option>
+                    <option value="#FFB74D">Orange</option>
+                    <option value="#A1887F">Brown</option>
+                    <option value="#90A4AE">Gray</option>
+                    <option value="#000000">Black</option>
+                    <option value="#ffffff">White</option>
+                </select>
+            </div>
+        </div>
+        <button id="save-button">Save Note</button>
+        <button id="download-button">Download Note</button>
+        <button id="share-button">Share</button>
+        <button id="add-link-button">Add Link</button>
+
+        <input type="file" id="upload-input" accept="image/*,video/*" style="display: none;">
+        <div id="share-box">
+            <input type="text" id="share-link-input" readonly>
+            <button id="copy-link-button">Copy Link</button>
+        </div>
+        <div id="note-history">
+            <h2>Note History</h2>
+            <ul></ul>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+    
+
+    <script>
+        // JavaScript code (modified to include date and time)
+        // Get references to elements
+        const noteTitle = document.getElementById('note-title');
+        const noteText = document.getElementById('note-text');
+        const saveButton = document.getElementById('save-button');
+        const downloadButton = document.getElementById('download-button');
+        const shareButton = document.getElementById('share-button');
+        const addLinkButton = document.getElementById('add-link-button');
+        const shareBox = document.getElementById('share-box');
+        const shareLinkInput = document.getElementById('share-link-input');
+        const copyLinkButton = document.getElementById('copy-link-button');
+        const noteHistoryList = document.querySelector('#note-history ul');
+        const letterCountDisplay = document.getElementById('letter-count');
+        const wordCountDisplay = document.getElementById('word-count');
+
+        let isChangingBackgroundColor = false;
+        let isChangingTextColor = false;
+        let savedNotes = JSON.parse(localStorage.getItem('savedNotes')) || [];
+
+        // Function to clear the note title and text areas
+        function clearNote() {
+            noteTitle.value = '';
+            noteText.innerHTML = '';
+        }
+
+        // Call the clearNote function when the page loads
+        window.onload = clearNote;
+
+        // Event listener for the save button
+        saveButton.addEventListener('click', () => {
+            const title = noteTitle.value;
+            const note = noteText.innerHTML;
+            const dateTime = new Date().toLocaleString(); // Get the current date and time
+            const newNote = { title, note, dateTime }; // Include date and time
+            savedNotes.push(newNote);
+            localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
+            updateNoteHistoryDisplay();
+            alert('Note saved successfully!');
+        });
+
+        // Event listener for the download button
+// Event listener for the download button
+downloadButton.addEventListener('click', () => {
+    const title = noteTitle.value;
+    const note = noteText.innerHTML;
+
+    // Create a Blob containing the note content as plain text
+    const blob = new Blob([`Title: ${title}\n\n${note}`], { type: 'text/plain' });
+
+    // Create a download link for the Blob
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+
+    // Set the download file name with the .txt extension
+    a.download = `${title}.txt`;
+
+    // Trigger a click event on the link to initiate the download
+    a.click();
+
+    // Revoke the Object URL to free up resources
+    URL.revokeObjectURL(url);
+});
+;
+
+
+        // Event listener for the share button
+        shareButton.addEventListener('click', () => {
+            const title = encodeURIComponent(noteTitle.value);
+            const note = encodeURIComponent(noteText.innerHTML);
+            const shareableLink = `${window.location.origin}/share.html?title=${title}&note=${note}`;
+            shareLinkInput.value = shareableLink;
+            shareBox.style.display = 'block';
+        });
+
+        // Event listener for the copy link button
+        copyLinkButton.addEventListener('click', () => {
+            shareLinkInput.select();
+            document.execCommand('copy');
+            alert('Link copied to clipboard!');
+        });
+
+
+
+
+        // Event listener for the add link button
+        addLinkButton.addEventListener('click', () => {
+            // Create an input field for the URL
+            const linkInput = document.createElement('input');
+            linkInput.placeholder = 'Enter URL';
+            linkInput.style.marginRight = '10px';
+
+            // Create a button to confirm the link
+            const confirmButton = document.createElement('button');
+            confirmButton.textContent = 'Add';
+            confirmButton.style.backgroundColor = '#28a745'; // Green
+            confirmButton.style.color = 'white';
+            confirmButton.style.border = 'none';
+            confirmButton.style.borderRadius = '5px';
+            confirmButton.style.cursor = 'pointer';
+
+            // Event listener for the confirm button
+            confirmButton.addEventListener('click', () => {
+                const url = linkInput.value.trim();
+                if (url !== '') {
+                    // Get the selected text, if any
+                    const selectedText = window.getSelection().toString();
+
+                    // Create an anchor element for the link
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.textContent = selectedText || url;
+                    link.target = '_blank';
+
+                    // Insert the link at the current cursor position
+                    const selection = window.getSelection();
+                    if (selection.rangeCount > 0) {
+                        const range = selection.getRangeAt(0);
+                        range.deleteContents();
+                        range.insertNode(link);
+                    }
+
+                    // Make the links clickable
+                    makeLinksClickable(noteText);
+
+                    // Remove the input and button
+                    linkInput.remove();
+                    confirmButton.remove();
+                }
+            });
+
+            // Append the input and button to the note text
+            noteText.appendChild(linkInput);
+            noteText.appendChild(confirmButton);
+        });
+
+ 
+
+
+
+
+        // Function to make links clickable
+        function makeLinksClickable(container) {
+            const links = container.querySelectorAll('a');
+            links.forEach((link) => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    window.open(link.href, '_blank');
+                });
+            });
+        }
+      
+     // Function to update the note history display
+        function updateNoteHistoryDisplay() {
+            noteHistoryList.innerHTML = '';
+            savedNotes.forEach((savedNote, index) => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    ${savedNote.title}
+                    <br>
+                     ${savedNote.dateTime}
+                    <button data-index="${index}" class="load-button">Load</button>
+                    <button data-index="${index}" class="delete-button">Delete</button>
+                `;
+                noteHistoryList.appendChild(listItem);
+            });
+
+            // Add event listeners to the load and delete buttons
+            const loadButtons = document.querySelectorAll('.load-button');
+            loadButtons.forEach((loadButton) => {
+                loadButton.addEventListener('click', (event) => {
+                    const index = event.target.getAttribute('data-index');
+                    if (index !== null) {
+                        const selectedNote = savedNotes[index];
+                        noteTitle.value = selectedNote.title;
+                        noteText.innerHTML = selectedNote.note;
+                        makeLinksClickable(noteText);
+                    }
+                });
+            });
+
+            const deleteButtons = document.querySelectorAll('.delete-button');
+            deleteButtons.forEach((deleteButton) => {
+                deleteButton.addEventListener('click', (event) => {
+                    const index = event.target.getAttribute('data-index');
+                    if (index !== null) {
+                        savedNotes.splice(index, 1);
+                        localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
+                        updateNoteHistoryDisplay();
+                    }
+                });
+            });
+        }
+
+        // Event listener for the note text content
+        noteText.addEventListener('input', () => {
+            const text = noteText.innerText;
+            const letterCount = text.length;
+            const words = text.trim().split(/\s+/);
+            const wordCount = words.length;
+            letterCountDisplay.innerText = `Letters: ${letterCount}`;
+            wordCountDisplay.innerText = `Words: ${wordCount}`;
+        });
+
+        
+
+        // Load saved note data (if available)
+        const savedTitle = localStorage.getItem('savedNoteTitle');
+        const savedNote = localStorage.getItem('savedNoteText');
+        if (savedTitle) {
+            noteTitle.value = savedTitle;
+        }
+        if (savedNote) {
+            noteText.innerHTML = savedNote; // Use innerHTML to set the content
+            // Make existing links clickable
+            makeLinksClickable(noteText);
+        }
+
+        // Initialize the note history display
+        updateNoteHistoryDisplay();
+    </script>
+
+</body>
+</html>

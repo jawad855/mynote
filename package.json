@@ -1,0 +1,12 @@
+{
+  "name": "plain-text-note-taker",
+  "version": "1.0.0",
+  "description": "A simple note-taking application",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.9"
+  }
+}

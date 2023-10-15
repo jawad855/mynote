@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            align-items: center;
+            justify-content: center;
+            height: 45vh;
+            margin: 0;
+        }
+
+        h1, p, button {
+            text-align: center;
+        }
+
+        /* Add the navigation bar styles here */
+        nav {
+            background-color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        nav img {
+            height: 50px;
+            width: auto;
+            margin-right: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            text-align: center;
+        }
+
+        nav li {
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        /* End of navigation bar styles */
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html"> 
+            <img src="favicon/note 350 x 75.png" alt="Logo">
+        </a>
+        <ul>
+            <li class="dropdown">
+                <a href="javascript:void(0)">Services</a>
+                <div class="dropdown-content">
+                    <a href="calculat.html">Calculator</a>
+                    <a href="Length.html">Length Converter</a>
+                    <a href="Math quizzes Easy.html">Math quiz Easy</a>
+                    <a href="Math quizzes medium.html">Math quiz Medium</a>
+                    <a href="Math quizzes Hard.html">Math quiz Hard</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">random</a>
+                <div class="dropdown-content">
+                    <a href="website.html">web site </a>
+                    <a href="picture.html">pictures  </a>
+                    <a href="name.html">name  </a>
+                    <a href="nambers.html">numbers </a>
+                    <a href="qoute.html">Quote </a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">Art</a>
+                <div class="dropdown-content">
+                    <a href="draw.html">draw </a>
+                    <a href="draw pexel.html">draw pexel </a>
+                </div>
+            </div>
+            <li class="dropdown">
+                <a href="javascript:void(0)">Game</a>
+                <div class="dropdown-content">
+                    <a href="Hand Clash.html">Hand Clash </a>
+                    <a href="Tabulae Trium.html">Tabulae Trium </a>
+                </div>
+            </div>
+            </li>
+
+        
+        </li>
+            <li><a href="index.html">Note</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+    <h1>Random Number Generator</h1>
+    <p>Generate a random number </p>
+    <button id="generateButton">Generate Random Number</button>
+    <p id="randomNumber"></p>
+
+    <script>
+        // Function to generate a random number within a range
+        function getRandomNumber() {
+            const min = 1;
+            const max = 100000;
+            const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+            document.getElementById('randomNumber').textContent = randomNumber;
+        }
+
+        // Add a click event listener to the button
+        document.getElementById('generateButton').addEventListener('click', getRandomNumber);
+    </script>
+</body>
+</html>

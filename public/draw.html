@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Drawing</title>
+    <style>
+    
+    nav {
+            background-color: white;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%; /* Make the navigation bar full width */
+            position: fixed; /* Fix it to the top */
+            top: 0; /* Place it at the top */
+            left: 0; /* Align it to the left */
+            z-index: 1000; /* Ensure it's above other content */
+        }
+
+        nav img {
+            height: 50px;
+            width: auto;
+            margin-right: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            text-align: center;
+        }
+
+        nav li {
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+    
+    
+      body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+      
+    
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+        }
+
+        canvas {
+            border: 2px solid #333;
+            display: block;
+            margin: 20px auto;
+            cursor: crosshair;
+        }
+
+        .color-picker,
+        .pen-size,
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .color-picker label,
+        .pen-size label {
+            margin-right: 10px;
+        }
+
+        input[type="color"],
+        input[type="range"] {
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        button {
+            background-color: #FF5733;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #FF4222;
+        }
+    </style>
+</head>
+<body>
+    <!-- Your navigation bar -->
+    <nav>
+        <a href="index.html"> 
+            <img src="favicon/note 350 x 75.png" alt="Logo">
+        </a>
+        <ul>
+            <li class="dropdown">
+                <a href="javascript:void(0)">Services</a>
+                <div class="dropdown-content">
+                    <a href="calculat.html">Calculator</a>
+                    <a href="Length.html">Length Converter</a>
+                    <a href="Math quizzes Easy.html">Math quiz Easy</a>
+                    <a href="Math quizzes medium.html">Math quiz Medium</a>
+                    <a href="Math quizzes Hard.html">Math quiz Hard</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">random</a>
+                <div class="dropdown-content">
+                    <a href="website.html">web site </a>
+                    <a href="picture.html">pictures  </a>
+                    <a href="name.html">name  </a>
+                    <a href="nambers.html">numbers </a>
+                    <a href="qoute.html">Quote </a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">Art</a>
+                <div class="dropdown-content">
+                    <a href="draw.html">draw </a>
+                    <a href="draw pexel.html">draw pexel </a>
+                </div>
+            </div>
+           
+            <li class="dropdown">
+                <a href="javascript:void(0)">Game</a>
+                <div class="dropdown-content">
+                    <a href="Hand Clash.html">Hand Clash </a>
+                    <a href="Tabulae Trium.html">Tabulae Trium </a>
+                </div>
+            </div>
+            </li>
+
+        </li>
+            <li><a href="index.html">Note</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+</head>
+<body>
+    <div class="container">
+
+        <h1> Drawing Area</h1>
+        <p>Use the canvas below to draw:</p>
+        <canvas id="drawingCanvas" width="400" height="400"></canvas>
+       
+        <div class="color-picker">
+            <label for="colorPicker">Select a drawing color:</label>
+            <input type="color" id="colorPicker">
+        </div>
+        <div class="pen-size">
+            <label for="penSize">Select pen size:</label>
+            <input type="range" id="penSize" min="1" max="10" value="2">
+        </div>
+        <div class="buttons">
+            <button id="clearCanvas">Clear Canvas</button>
+            <button id="undo">Undo</button>
+            <button id="redo">Redo</button>
+            <button id="saveDrawing">Save Drawing</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+      
+        const colorPicker = document.getElementById('colorPicker');
+        const penSize = document.getElementById('penSize');
+        const clearButton = document.getElementById('clearCanvas');
+        const saveButton = document.getElementById('saveDrawing');
+        const undoButton = document.getElementById('undo');
+        const redoButton = document.getElementById('redo');
+      
+        let drawingColor = colorPicker.value;
+        let drawingSize = penSize.value;
+      
+        // Arrays to store drawing commands for undo and redo
+        const undoStack = [];
+        const redoStack = [];
+      
+        colorPicker.addEventListener('input', () => {
+          drawingColor = colorPicker.value;
+        });
+      
+        penSize.addEventListener('input', () => {
+          drawingSize = penSize.value;
+        });
+      
+        clearButton.addEventListener('click', clearCanvas);
+        saveButton.addEventListener('click', saveDrawing);
+        undoButton.addEventListener('click', undoDrawing);
+        redoButton.addEventListener('click', redoDrawing);
+      
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchend', stopDrawing);
+        canvas.addEventListener('touchmove', draw);
+      
+        function startDrawing(e) {
+          isDrawing = true;
+          draw(e); // Start drawing immediately on touch/click
+      
+          // Clear redo stack when drawing starts a new path
+          redoStack.length = 0;
+      
+          // Capture the current canvas state for undo
+          const snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          undoStack.push(snapshot);
+        }
+      
+        function stopDrawing() {
+          isDrawing = false;
+          ctx.beginPath();
+        }
+      
+        function draw(e) {
+          if (!isDrawing) return;
+          ctx.lineWidth = drawingSize;
+          ctx.lineCap = 'round';
+          ctx.strokeStyle = drawingColor;
+      
+          // Adjust coordinates for touch events
+          const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+          const y = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      
+          ctx.lineTo(
+            x - canvas.getBoundingClientRect().left,
+            y - canvas.getBoundingClientRect().top
+          );
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(
+            x - canvas.getBoundingClientRect().left,
+            y - canvas.getBoundingClientRect().top
+          );
+        }
+      
+        function clearCanvas() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          // Clear the undo and redo stacks when the canvas is cleared
+          undoStack.length = 0;
+          redoStack.length = 0;
+        }
+      
+        function saveDrawing() {
+          const imgData = canvas.toDataURL('image/png');
+          const link = document.createElement('a');
+          link.href = imgData;
+          link.download = 'drawing.png';
+          link.click();
+        }
+      
+        function undoDrawing() {
+          if (undoStack.length > 0) {
+            // Pop the current state from the undo stack
+            const lastState = undoStack.pop();
+            // Save the current state in the redo stack
+            redoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+            // Restore the canvas state
+            ctx.putImageData(lastState, 0, 0);
+          }
+        }
+      
+        function redoDrawing() {
+          if (redoStack.length > 0) {
+            // Pop the current state from the redo stack
+            const nextState = redoStack.pop();
+            // Save the current state in the undo stack
+            undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+            // Restore the canvas state
+            ctx.putImageData(nextState, 0, 0);
+          }
+        }
+      </script>      
+</body>
+</html>

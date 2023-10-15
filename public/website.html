@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Style Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: white;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%; /* Make the navigation bar full width */
+            position: fixed; /* Fix it to the top */
+            top: 0; /* Place it at the top */
+            left: 0; /* Align it to the left */
+            z-index: 1000; /* Ensure it's above other content */
+        }
+
+        nav img {
+            height: 50px;
+            width: auto;
+            margin-right: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            text-align: center;
+        }
+
+        nav li {
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .note-container {
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            border-radius: 10px;
+            margin: 20px auto;
+        }
+    
+        .content {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html"> 
+            <img src="favicon/note 350 x 75.png" alt="Logo">
+        </a>
+        <ul>
+            <li class="dropdown">
+                <a href="javascript:void(0)">Services</a>
+                <div class="dropdown-content">
+                    <a href="calculat.html">Calculator</a>
+                    <a href="Length.html">Length Converter</a>
+                    <a href="Math quizzes Easy.html">Math quiz Easy</a>
+                    <a href="Math quizzes medium.html">Math quiz Medium</a>
+                    <a href="Math quizzes Hard.html">Math quiz Hard</a>
+                </div>
+            </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">random</a>
+                <div class="dropdown-content">
+                    <a href="website.html">web site </a>
+                    <a href="picture.html">pictures  </a>
+                    <a href="name.html">name  </a>
+                    <a href="nambers.html">numbers </a>
+                    <a href="qoute.html">Quote </a>
+                </div>
+            </div>
+            </li>
+         
+            <li class="dropdown">
+                <a href="javascript:void(0)">Art</a>
+                <div class="dropdown-content">
+                    <a href="draw.html">draw </a>
+                    <a href="draw pexel.html">draw pexel </a>
+                </div>
+            </div>
+            </li>
+    
+            <li class="dropdown">
+                <a href="javascript:void(0)">Game</a>
+                <div class="dropdown-content">
+                    <a href="Hand Clash.html">Hand Clash </a>
+                    <a href="Tabulae Trium.html">Tabulae Trium </a>
+                </div>
+            </div>
+            </li>
+
+
+            <li><a href="index.html">Note</a></li>
+            <li><a href="about.html">About</a></li>
+       
+        </ul>
+    </nav>
+</body>
+</head>
+<body>
+    <div class="content">
+        <h1>Welcome to the Random Style Website</h1>
+        <p>Click the button below to change the website's style randomly.</p>
+        <button id="randomStyleButton">Change Style</button>
+    </div>
+
+    <script>
+        const button = document.getElementById('randomStyleButton');
+
+        button.addEventListener('click', () => {
+            // Generate random styles
+            const randomBackgroundColor = getRandomColor();
+            const randomTextColor = getRandomColor();
+            const randomFontSize = getRandomFontSize();
+            const randomBorderColor = getRandomColor();
+            const randomBorderWidth = getRandomBorderWidth();
+            const randomPadding = getRandomPadding();
+            const randomMargin = getRandomMargin();
+
+            // Apply random styles to the body
+            const body = document.body.style;
+            body.backgroundColor = randomBackgroundColor;
+            body.color = randomTextColor;
+            body.fontSize = randomFontSize;
+            body.borderColor = randomBorderColor;
+            body.borderWidth = randomBorderWidth;
+            body.padding = randomPadding;
+            body.margin = randomMargin;
+        });
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function getRandomFontSize() {
+            return Math.floor(Math.random() * 40 + 10) + 'px';
+        }
+
+        function getRandomBorderWidth() {
+            return Math.floor(Math.random() * 5) + 'px';
+        }
+
+        function getRandomPadding() {
+            return Math.floor(Math.random() * 20) + 'px';
+        }
+
+        function getRandomMargin() {
+            return Math.floor(Math.random() * 20) + 'px';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math quizzes Easy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        nav {
+            background-color:white; /* Set the background color of the navbar */
+            padding: 10px; /* Add some padding to the navbar */
+            display: flex; /* Use flexbox to control alignment */
+            justify-content: space-between; /* Space items evenly */
+            align-items: center; /* Center vertically */
+        }
+
+        nav img {
+            height: 50px; /* Set the height of the logo image */
+            width: auto; /* Allow the width to adjust proportionally */
+            margin-right: 20px; /* Add some spacing to the right of the logo */
+        }
+
+        nav ul {
+            list-style-type: none; /* Remove the default list style for the navigation links */
+            padding: 0; /* Remove padding for the list */
+            display: flex; /* Display the list items horizontally */
+       text-align: center;
+        }
+
+        nav li {
+            margin-right: 20px; /* Add some spacing between the list items */
+        }
+
+        nav a {
+            text-decoration: none; /* Remove underlines from links */
+            color: black; /* Set the text color of the links */
+        }
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+             color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+}
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        h1 {
+            color: #333;
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .equation {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .answer-input {
+            width: 100px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .submit-button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html"> 
+            <img src="favicon/note 350 x 75.png" alt="Logo">
+        </a>
+        <ul>
+            <li class="dropdown">
+                <a href="javascript:void(0)">Services</a>
+                <div class="dropdown-content">
+                    <a href="calculat.html">Calculator</a>
+                    <a href="Length.html">Length Converter</a>
+                    <a href="Math quizzes Easy.html">Math quiz Easy</a>
+                    <a href="Math quizzes medium.html">Math quiz Medium</a>
+                    <a href="Math quizzes Hard.html">Math quiz Hard</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)">random</a>
+                <div class="dropdown-content">
+                    <a href="website.html">web site </a>
+                    <a href="picture.html">pictures  </a>
+                    <a href="name.html">name  </a>
+                    <a href="nambers.html">numbers </a>
+                    <a href="qoute.html">Quote </a>
+                </div>
+            </li>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)">Art</a>
+            <div class="dropdown-content">
+                <a href="draw.html">draw </a>
+                <a href="draw pexel.html">draw pexel </a>
+            </div>
+        </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)">Game</a>
+            <div class="dropdown-content">
+                <a href="Hand Clash.html">Hand Clash </a>
+                <a href="Tabulae Trium.html">Tabulae Trium </a>
+            </div>
+        </div>
+        </li>
+
+        
+        <li><a href="index.html">Note</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </nav>
+
+</body>
+</head>
+<body>
+    <h1>Math quizzes Easy</h1>
+    <div class="quiz-container">
+        <div class="equation" id="equation-display">
+            <!-- Equation will be generated here -->
+        </div>
+        <form id="quiz-form">
+            <input type="number" class="answer-input" id="user-answer" placeholder="Your Answer" required>
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+          function generateRandomEquation() {
+            const operators = ['+', '-', '*', '/'];
+            const randomOperator = operators[Math.floor(Math.random() * operators.length)];
+            const randomNumber1 = Math.floor(Math.random() * 100000) + 1;
+            const randomNumber2 = Math.floor(Math.random() * 100000) + 1;
+
+            return `${randomNumber1} ${randomOperator} ${randomNumber2}`;
+        }
+    
+        function calculateResult(e) {
+            e.preventDefault();
+            const userAnswer = parseFloat(document.getElementById('user-answer').value);
+            const equation = document.getElementById('equation-display').innerText;
+            const correctAnswer = eval(equation);
+            const resultContainer = document.getElementById('result');
+
+            if (isNaN(userAnswer)) {
+                resultContainer.innerText = 'Please enter a valid number.';
+            } else if (userAnswer === correctAnswer) {
+                resultContainer.innerText = 'Congratulations! You got it right!';
+            } else {
+                resultContainer.innerText = 'Oops! Try again.';
+            }
+
+            // Generate a new random equation for the next quiz
+            document.getElementById('equation-display').innerText = generateRandomEquation();
+        }
+        // Rest of your JavaScript code remains the same
+    
+        // Initial random equation generation
+        document.getElementById('equation-display').innerText = generateRandomEquation();
+    
+        document.getElementById('quiz-form').addEventListener('submit', calculateResult);
+    </script>
+</body>
+</html>
